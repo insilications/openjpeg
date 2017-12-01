@@ -1,0 +1,4 @@
+mkdir -p %{buildroot}/usr/lib64/
+mv %{buildroot}/usr/lib/libopenjp2.so %{buildroot}/usr/lib64/libopenjp2.so
+mv %{buildroot}/usr/lib/libopenjp2.so.2.3.0 %{buildroot}/usr/lib64/libopenjp2.so.2.3.0
+mv %{buildroot}/usr/lib/libopenjp2.so.7 %{buildroot}/usr/lib64/libopenjp2.so.7
