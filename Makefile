@@ -1,5 +1,5 @@
 PKG_NAME := openjpeg
-URL = https://github.com/uclouvain/openjpeg/archive/v2.3.1.tar.gz
+URL = https://github.com/uclouvain/openjpeg.git
 ARCHIVES = 
 
 include ../common/Makefile.common

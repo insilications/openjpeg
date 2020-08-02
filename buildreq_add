@@ -1,2 +1,15 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+buildreq-cmake
+curl-dev
+doxygen
+findutils
+glibc-dev
+glibc-staticdev
+libpng-dev
+libpng-staticdev
+openjdk13
+openjdk13-dev
+tiff-dev
+zlib-dev
+zlib-staticdev
