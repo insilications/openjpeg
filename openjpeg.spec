@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : openjpeg
 Version  : 2.3.1
-Release  : 8
+Release  : 9
 URL      : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-v2.3.1.zip
 Source0  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-v2.3.1.zip
 Source1  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-data-20.05.19.zip
@@ -94,7 +94,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1597530432
+export SOURCE_DATE_EPOCH=1597530877
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -118,7 +118,7 @@ export RANLIB=gcc-ranlib
 export NM=gcc-nm
 #export CCACHE_DISABLE=1
 ## altflags1 end
-%cmake .. -DOPENJPEG_INSTALL_LIB_DIR=lib64 -DBUILD_TESTING=1 -DBUILD_CODEC=1 -DBUILD_UNIT_TESTS=1 -DBUILD_SHARED_LIBS=1 -DBUILD_STATIC_LIBS=1 -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING:BOOL=ON -DOPJ_DATA_ROOT="/openjpeg-data" -DBUILD_DOC=0
+%cmake .. -DOPENJPEG_INSTALL_LIB_DIR=lib64 -DBUILD_TESTING=1 -DBUILD_CODEC=1 -DBUILD_UNIT_TESTS=1 -DBUILD_SHARED_LIBS=1 -DBUILD_STATIC_LIBS=1 -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING:BOOL=ON -DOPJ_DATA_ROOT="./openjpeg-data" -DBUILD_DOC=0
 make  %{?_smp_mflags}  V=1 VERBOSE=1
 popd
 
@@ -130,7 +130,7 @@ unset no_proxy
 V=1 VERBOSE=1 ctest -V
 
 %install
-export SOURCE_DATE_EPOCH=1597530432
+export SOURCE_DATE_EPOCH=1597530877
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
