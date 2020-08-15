@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : openjpeg
 Version  : 2.3.1
-Release  : 12
+Release  : 13
 URL      : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-v2.3.1.zip
 Source0  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-v2.3.1.zip
 Source1  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-data-20.05.19.zip
@@ -21,6 +21,7 @@ BuildRequires : findutils
 BuildRequires : glibc-dev
 BuildRequires : glibc-staticdev
 BuildRequires : kakadu
+BuildRequires : kakadu-bin
 BuildRequires : kakadu-dev
 BuildRequires : lcms2
 BuildRequires : lcms2-dev
@@ -34,6 +35,7 @@ BuildRequires : openjdk13-dev
 BuildRequires : pkgconfig(lcms2)
 BuildRequires : pkgconfig(zlib)
 BuildRequires : tiff-dev
+BuildRequires : tiff-staticdev
 BuildRequires : zlib-dev
 BuildRequires : zlib-staticdev
 # Suppress stripping binaries
@@ -94,7 +96,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1597533099
+export SOURCE_DATE_EPOCH=1597534120
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -118,7 +120,7 @@ export RANLIB=gcc-ranlib
 export NM=gcc-nm
 #export CCACHE_DISABLE=1
 ## altflags1 end
-%cmake .. -DOPENJPEG_INSTALL_LIB_DIR=lib64 -DBUILD_TESTING=1 -DBUILD_CODEC=1 -DBUILD_UNIT_TESTS=1 -DBUILD_SHARED_LIBS=1 -DBUILD_STATIC_LIBS=1 -DCMAKE_BUILD_TYPE=Release -DBUILD_DOC=0
+%cmake .. -DOPENJPEG_INSTALL_LIB_DIR=lib64 -DBUILD_TESTING=1 -DBUILD_CODEC=1 -DBUILD_UNIT_TESTS=1 -DBUILD_SHARED_LIBS=1 -DBUILD_STATIC_LIBS=1 -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING:BOOL=ON -DBUILD_DOC=0
 make  %{?_smp_mflags}  V=1 VERBOSE=1
 popd
 
@@ -132,7 +134,7 @@ V=1 VERBOSE=1 make Experimental || :
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1597533099
+export SOURCE_DATE_EPOCH=1597534120
 rm -rf %{buildroot}
 pushd clr-build
 %make_install

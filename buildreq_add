@@ -11,6 +11,7 @@ libpng-staticdev
 openjdk13
 openjdk13-dev
 tiff-dev
+tiff-staticdev
 zlib-dev
 zlib-staticdev
 lcms2
@@ -18,3 +19,4 @@ lcms2-dev
 lcms2-staticdev
 kakadu
 kakadu-dev
+kakadu-bin
