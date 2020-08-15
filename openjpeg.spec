@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : openjpeg
 Version  : 2.3.1
-Release  : 7
+Release  : 8
 URL      : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-v2.3.1.zip
 Source0  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-v2.3.1.zip
 Source1  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-data-20.05.19.zip
@@ -13,7 +13,7 @@ Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
 Requires: openjpeg-bin = %{version}-%{release}
-Requires: openjpeg-plugins = %{version}-%{release}
+Requires: openjpeg-lib = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : curl-dev
 BuildRequires : doxygen
@@ -55,6 +55,7 @@ bin components for the openjpeg package.
 %package dev
 Summary: dev components for the openjpeg package.
 Group: Development
+Requires: openjpeg-lib = %{version}-%{release}
 Requires: openjpeg-bin = %{version}-%{release}
 Provides: openjpeg-devel = %{version}-%{release}
 Requires: openjpeg = %{version}-%{release}
@@ -63,12 +64,12 @@ Requires: openjpeg = %{version}-%{release}
 dev components for the openjpeg package.
 
 
-%package plugins
-Summary: plugins components for the openjpeg package.
-Group: Default
+%package lib
+Summary: lib components for the openjpeg package.
+Group: Libraries
 
-%description plugins
-plugins components for the openjpeg package.
+%description lib
+lib components for the openjpeg package.
 
 
 %package staticdev
@@ -93,7 +94,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1597528957
+export SOURCE_DATE_EPOCH=1597530432
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -117,7 +118,7 @@ export RANLIB=gcc-ranlib
 export NM=gcc-nm
 #export CCACHE_DISABLE=1
 ## altflags1 end
-%cmake .. -DBUILD_TESTING=1 -DBUILD_UNIT_TESTS=1 -DBUILD_SHARED_LIBS=1 -DBUILD_STATIC_LIBS=1 -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING:BOOL=ON -DOPJ_DATA_ROOT:PATH="${CMAKE_SOURCE_DIR}/openjpeg-data"
+%cmake .. -DOPENJPEG_INSTALL_LIB_DIR=lib64 -DBUILD_TESTING=1 -DBUILD_CODEC=1 -DBUILD_UNIT_TESTS=1 -DBUILD_SHARED_LIBS=1 -DBUILD_STATIC_LIBS=1 -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING:BOOL=ON -DOPJ_DATA_ROOT="/openjpeg-data" -DBUILD_DOC=0
 make  %{?_smp_mflags}  V=1 VERBOSE=1
 popd
 
@@ -129,7 +130,7 @@ unset no_proxy
 V=1 VERBOSE=1 ctest -V
 
 %install
-export SOURCE_DATE_EPOCH=1597528957
+export SOURCE_DATE_EPOCH=1597530432
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -141,9 +142,9 @@ popd
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/openjpeg-2.3/OpenJPEGConfig.cmake
-/usr/lib/openjpeg-2.3/OpenJPEGTargets-release.cmake
-/usr/lib/openjpeg-2.3/OpenJPEGTargets.cmake
+/usr/lib64/openjpeg-2.3/OpenJPEGConfig.cmake
+/usr/lib64/openjpeg-2.3/OpenJPEGTargets-release.cmake
+/usr/lib64/openjpeg-2.3/OpenJPEGTargets.cmake
 
 %files bin
 %defattr(-,root,root,-)
@@ -156,14 +157,14 @@ popd
 /usr/include/openjpeg-2.3/openjpeg.h
 /usr/include/openjpeg-2.3/opj_config.h
 /usr/include/openjpeg-2.3/opj_stdint.h
-/usr/lib/libopenjp2.so
+/usr/lib64/libopenjp2.so
 /usr/lib64/pkgconfig/libopenjp2.pc
 
-%files plugins
+%files lib
 %defattr(-,root,root,-)
-/usr/lib/libopenjp2.so.2.3.1
-/usr/lib/libopenjp2.so.7
+/usr/lib64/libopenjp2.so.2.3.1
+/usr/lib64/libopenjp2.so.7
 
 %files staticdev
 %defattr(-,root,root,-)
-/usr/lib/libopenjp2.a
+/usr/lib64/libopenjp2.a
