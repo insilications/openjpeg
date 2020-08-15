@@ -13,3 +13,8 @@ openjdk13-dev
 tiff-dev
 zlib-dev
 zlib-staticdev
+lcms2
+lcms2-dev
+lcms2-staticdev
+kakadu
+kakadu-dev
