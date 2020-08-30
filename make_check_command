@@ -1,3 +1,0 @@
-pushd clr-build
-V=1 VERBOSE=1 make Experimental || :
-popd
