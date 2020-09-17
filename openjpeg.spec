@@ -5,10 +5,10 @@
 %define keepstatic 1
 Name     : openjpeg
 Version  : 2.3.1
-Release  : 15
+Release  : 16
 URL      : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-v2.3.1.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-v2.3.1.tar.gz
-Source1  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-data-20.05.19.tar.gz
+Source1  : file:///insilications/build/clearlinux/packages/openjpeg/openjpeg-data-.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -86,7 +86,7 @@ staticdev components for the openjpeg package.
 %prep
 %setup -q -n openjpeg
 cd %{_builddir}
-tar xf %{_sourcedir}/openjpeg-data-20.05.19.tar.gz
+tar xf %{_sourcedir}/openjpeg-data-.tar.gz
 cd %{_builddir}/openjpeg
 mkdir -p data
 cp -r %{_builddir}/openjpeg-data/* %{_builddir}/openjpeg/data
@@ -95,8 +95,9 @@ cp -r %{_builddir}/openjpeg-data/* %{_builddir}/openjpeg/data
 unset http_proxy
 unset https_proxy
 unset no_proxy
+export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1598780092
+export SOURCE_DATE_EPOCH=1600325958
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -147,7 +148,7 @@ export LDFLAGS="${LDFLAGS_GENERATE}"
 make  %{?_smp_mflags}  V=1 VERBOSE=1
 
 V=1 VERBOSE=1 make Experimental || :
-find . -type f -not -name '*.gcno' -delete -print
+find . -type f,l -not -name '*.gcno' -delete -print
 export CFLAGS="${CFLAGS_USE}"
 export CXXFLAGS="${CXXFLAGS_USE}"
 export FFLAGS="${FFLAGS_USE}"
@@ -162,10 +163,11 @@ export LANG=C.UTF-8
 unset http_proxy
 unset https_proxy
 unset no_proxy
+export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 cd clr-build; make test || :
 
 %install
-export SOURCE_DATE_EPOCH=1598780092
+export SOURCE_DATE_EPOCH=1600325958
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -177,9 +179,6 @@ popd
 
 %files
 %defattr(-,root,root,-)
-/usr/lib64/openjpeg-2.3/OpenJPEGConfig.cmake
-/usr/lib64/openjpeg-2.3/OpenJPEGTargets-release.cmake
-/usr/lib64/openjpeg-2.3/OpenJPEGTargets.cmake
 
 %files bin
 %defattr(-,root,root,-)
@@ -193,6 +192,9 @@ popd
 /usr/include/openjpeg-2.3/opj_config.h
 /usr/include/openjpeg-2.3/opj_stdint.h
 /usr/lib64/libopenjp2.so
+/usr/lib64/openjpeg-2.3/OpenJPEGConfig.cmake
+/usr/lib64/openjpeg-2.3/OpenJPEGTargets-release.cmake
+/usr/lib64/openjpeg-2.3/OpenJPEGTargets.cmake
 /usr/lib64/pkgconfig/libopenjp2.pc
 
 %files lib
