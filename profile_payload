@@ -1,1 +1,2 @@
-V=1 VERBOSE=1 make Experimental || :
+#make -j16 Experimental V=1 VERBOSE=1 || :
+ctest -j16 --progress -V -D Experimental || :

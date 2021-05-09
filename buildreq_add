@@ -20,3 +20,11 @@ lcms2-staticdev
 kakadu
 kakadu-dev
 kakadu-bin
+xz-dev
+xz-staticdev
+zstd-dev
+zstd-staticdev
+libwebp-dev
+libwebp-staticdev
+libjpeg-turbo-dev
+libjpeg-turbo-staticdev
