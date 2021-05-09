@@ -8,11 +8,10 @@ Version  : 6848
 Release  : 17
 URL      : file:///aot/build/clearlinux/packages/openjpeg/openjpeg-6848.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/openjpeg/openjpeg-6848.tar.gz
+Source1  : file:///aot/build/clearlinux/packages/openjpeg/openjpeg-data-.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
-Requires: openjpeg-bin = %{version}-%{release}
-Requires: openjpeg-lib = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : curl-dev
 BuildRequires : doxygen
@@ -51,46 +50,13 @@ BuildRequires : zstd-staticdev
 ========================================================================
 OpenJPIP software 2.1 ReadMe
 
-%package bin
-Summary: bin components for the openjpeg package.
-Group: Binaries
-
-%description bin
-bin components for the openjpeg package.
-
-
-%package dev
-Summary: dev components for the openjpeg package.
-Group: Development
-Requires: openjpeg-lib = %{version}-%{release}
-Requires: openjpeg-bin = %{version}-%{release}
-Provides: openjpeg-devel = %{version}-%{release}
-Requires: openjpeg = %{version}-%{release}
-
-%description dev
-dev components for the openjpeg package.
-
-
-%package lib
-Summary: lib components for the openjpeg package.
-Group: Libraries
-
-%description lib
-lib components for the openjpeg package.
-
-
-%package staticdev
-Summary: staticdev components for the openjpeg package.
-Group: Default
-Requires: openjpeg-dev = %{version}-%{release}
-
-%description staticdev
-staticdev components for the openjpeg package.
-
-
 %prep
 %setup -q -n openjpeg
+cd %{_builddir}
+tar xf %{_sourcedir}/openjpeg-data-.tar.gz
 cd %{_builddir}/openjpeg
+mkdir -p data
+cp -r %{_builddir}/openjpeg-data/* %{_builddir}/openjpeg/data
 
 %build
 unset http_proxy
@@ -98,7 +64,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620601812
+export SOURCE_DATE_EPOCH=1620602076
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -199,7 +165,7 @@ export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 cd clr-build; make test || :
 
 %install
-export SOURCE_DATE_EPOCH=1620601812
+export SOURCE_DATE_EPOCH=1620602076
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -211,29 +177,3 @@ popd
 
 %files
 %defattr(-,root,root,-)
-
-%files bin
-%defattr(-,root,root,-)
-/usr/bin/opj_compress
-/usr/bin/opj_decompress
-/usr/bin/opj_dump
-
-%files dev
-%defattr(-,root,root,-)
-/usr/include/openjpeg-2.4/openjpeg.h
-/usr/include/openjpeg-2.4/opj_config.h
-/usr/include/openjpeg-2.4/opj_stdint.h
-/usr/lib64/libopenjp2.so
-/usr/lib64/openjpeg-2.4/OpenJPEGConfig.cmake
-/usr/lib64/openjpeg-2.4/OpenJPEGTargets-release.cmake
-/usr/lib64/openjpeg-2.4/OpenJPEGTargets.cmake
-/usr/lib64/pkgconfig/libopenjp2.pc
-
-%files lib
-%defattr(-,root,root,-)
-/usr/lib64/libopenjp2.so.2.4.0
-/usr/lib64/libopenjp2.so.7
-
-%files staticdev
-%defattr(-,root,root,-)
-/usr/lib64/libopenjp2.a
