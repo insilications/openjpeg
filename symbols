@@ -44,8 +44,6 @@ libopenjp2.so.7:opj_dwt_decode
 libopenjp2.so.7:opj_dwt_decode_real
 libopenjp2.so.7:opj_dwt_encode
 libopenjp2.so.7:opj_dwt_encode_real
-libopenjp2.so.7:opj_dwt_getgain
-libopenjp2.so.7:opj_dwt_getgain_real
 libopenjp2.so.7:opj_dwt_getnorm
 libopenjp2.so.7:opj_dwt_getnorm_real
 libopenjp2.so.7:opj_encode
@@ -124,7 +122,7 @@ libopenjp2.so.7:opj_mqc_bypass_enc
 libopenjp2.so.7:opj_mqc_bypass_flush_enc
 libopenjp2.so.7:opj_mqc_bypass_get_extra_bytes
 libopenjp2.so.7:opj_mqc_bypass_init_enc
-libopenjp2.so.7:opj_mqc_encode
+libopenjp2.so.7:opj_mqc_byteout
 libopenjp2.so.7:opj_mqc_erterm_enc
 libopenjp2.so.7:opj_mqc_flush
 libopenjp2.so.7:opj_mqc_init_dec
